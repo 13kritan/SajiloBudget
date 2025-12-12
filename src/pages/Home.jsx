@@ -4,78 +4,199 @@ import React from 'react'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import Dropdown from '../components/Dropdown'
+import { useNavigate } from "react-router-dom";
+import { useIncomes } from "../hooks/useNewIncome";
+import { useAddExpense, useExpenses } from '../hooks/useExpense'
+import BudgetCircle from '../components/BudgetCircle'
+import ExpensePieChart from '../components/PieChart'
+import TrendChart from '../components/MonthlyTrend'
 
 export default function Home() {
+    const navigate = useNavigate()
+    const { incomes, loading, error, refetch } = useIncomes();
+    const balance = incomes?.reduce((sum, income) => sum + income.amount, 0);
+
+    const { expenses, total, grouped, expLoading, expError, fetchExpenses, fetchByType } = useExpenses()
+    console.log(expenses)
+
+    const { amount, type, expenseType, note, setAmount, setType, setExpenseType, setNote, addExpense, handleAdd } = useAddExpense(fetchExpenses);
+
+    const expenseOptions = [
+        { label: "Food & Drinks", onClick: () => setExpenseType("Food & Drinks") },
+        { label: "Transport", onClick: () => setExpenseType("Transport") },
+        { label: "Shopping", onClick: () => setExpenseType("Shopping") },
+        { label: "Bills & Utilities", onClick: () => setExpenseType("Bills & Utilities") },
+        { label: "Entertainment", onClick: () => setExpenseType("Entertainment") },
+        { label: "Health", onClick: () => setExpenseType("Health") },
+        { label: "Education", onClick: () => setExpenseType("Education") },
+        { label: "Travel", onClick: () => setExpenseType("Travel") },
+        { label: "Savings", onClick: () => setExpenseType("Savings") },
+        { label: "Donations", onClick: () => setExpenseType("Donations") },
+        { label: "Others", onClick: () => setExpenseType("Others") }
+    ]
+
+
+    function formatTime(isoTime) {
+        const date = new Date(isoTime);
+        return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+    function formatDate(isoString) {
+        const date = new Date(isoString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+        const year = date.getFullYear();
+        return `${year}-${month}-${day}`;
+    }
+
     return (
         <div className='w-full h-full px-24 py-5 flex flex-col gap-3 items-center'>
             {/* Three Cards Home Structure */}
-            <div className="3cards flex gap-6 w-full">
+            <div className="3cards flex gap-6 w-full mb-2">
                 <Card titleCenter="true"
                     cardClass='bg-gradient-to-br from-blue-400 to-blue-800 text-white'
                     className='text-center font-semibold text-lg'
                     title="TOTAL INCOME">
-                    Rs. 24000
+                    Rs. {balance ? balance : <p>Failed</p>}
                 </Card>
                 <Card titleCenter="true"
                     cardClass='bg-gradient-to-br from-violet-400 to-violet-800 text-white'
                     className='text-center font-semibold text-lg'
                     title="TOTAL SPENDING">
-                    Rs. 19000
+                    Rs. {total ? total : <p>Failed</p>}
                 </Card>
                 <Card titleCenter="true"
                     cardClass='bg-gradient-to-br from-slate-400 to-slate-800 text-white'
                     className='text-center font-semibold text-lg'
                     title="CURRENT BALANCE">
-                    Rs. 5000
+                    Rs. {balance - total}
                 </Card>
             </div>
 
             {/* Budget Used Structure */}
-            <div className="px-5 py-4 border-2 border-slate-900 rounded-lg w-1/2">
-                <h2 className="text-2xl font-semibold text-white text-center">60% OF BUDGET USED</h2>
-            </div>
+            <BudgetCircle total={total} balance={balance} />
+
 
             {/* Statistics Layout */}
-            <div className="flex items-center justify-center gap-4 w-full">
-                <Card title="QUICK ADD EXPENSE" cardClass='w-1/4 bg-slate-800' className='flex flex-col gap-2'>
-                    <input type="number" inputMode='numeric' placeholder='AMOUNT'
-                        className='bg-transparent text-gray-400 rounded-lg outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-2 border-slate-700 px-4 py-2' />
+            <div className="flex justify-center gap-4 w-full">
+                {/* QUICK ADD EXPENSE */}
+                <Card title="QUICK ADD EXPENSE" cardClass="w-1/4 bg-slate-800" className="flex flex-col gap-2">
+                    <input
+                        type="number"
+                        inputMode="numeric"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="AMOUNT"
+                        className="bg-transparent text-gray-400 rounded-lg outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-2 border-slate-700 px-4 py-2"
+                    />
 
-                    <Dropdown label='CATEGORY' options={[
-                        { label: "Dashboard", href: "/dashboard" },
-                        { label: "Settings", onClick: () => alert("Settings clicked") },
-                        { label: "Logout", onClick: () => alert("Logged out") },
-                    ]
-                    } />
-                    <input placeholder='OUTLINE'
-                        className='bg-transparent text-gray-400 rounded-lg outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-2 border-slate-700 px-4 py-2' />
-                    <Button>ADD</Button>
+                    {/* CATEGORY DROPDOWN */}
+                    <Dropdown
+                        label={type}   // << dynamically updates
+                        options={[
+                            { label: "Cash", onClick: () => setType("Cash") },
+                            { label: "Esewa", onClick: () => setType("eSewa") },
+                            { label: "Bank", onClick: () => setType("Bank") },
+                        ]}
+                        selected={type}              // controlled value
+                        onSelect={(opt) => setType(opt.label)} // parent setter
+                    />
+                    <Dropdown
+                        label={expenseType || "Tag"}
+                        options={[
+                            { label: "Food & Drinks", onClick: () => setExpenseType("Food & Drinks") },
+                            { label: "Transport", onClick: () => setExpenseType("Transport") },
+                            { label: "Shopping", onClick: () => setExpenseType("Shopping") },
+                            { label: "Bills & Utilities", onClick: () => setExpenseType("Bills & Utilities") },
+                            { label: "Entertainment", onClick: () => setExpenseType("Entertainment") },
+                            { label: "Health", onClick: () => setExpenseType("Health") },
+                            { label: "Education", onClick: () => setExpenseType("Education") },
+                            { label: "Travel", onClick: () => setExpenseType("Travel") },
+                            { label: "Savings", onClick: () => setExpenseType("Savings") },
+                            { label: "Donations", onClick: () => setExpenseType("Donations") },
+                            { label: "Others", onClick: () => setExpenseType("Others") }
+                        ]}
+                        selected={expenseType}              // controlled value
+                        onSelect={(opt) => setExpenseType(opt.label)} // parent setter
+                    />
+
+                    {/* OUTLINE */}
+                    <input
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
+                        placeholder="OUTLINE"
+                        className="bg-transparent text-gray-400 rounded-lg outline-none [appearance:textfield] border-2 border-slate-700 px-4 py-2"
+                    />
+
+                    {/* ADD BUTTON */}
+                    <Button onClick={handleAdd}>ADD</Button>
                 </Card>
+
+                {/* PIE CHART */}
                 <Card title="CATEGORY SPENDING" cardClass='w-2/4 bg-slate-800'>
-                    Category
-
-
+                    <ExpensePieChart />
                 </Card>
+
+                {/* QUICK ACTION BUTTONS */}
                 <Card title="QUICK ACTION" cardClass='w-1/4 bg-slate-800'>
                     <div className='flex flex-col gap-2'>
-                        <Button>New Income</Button>
-                        <Button>View Reports</Button>
+                        <Button
+                            onClick={() => navigate("/newIncome")}>
+                            New Income
+                        </Button>
+                        <Button onClick={() => navigate("/report")}>View Reports</Button>
                     </div>
                 </Card>
             </div>
 
             {/* Monthly Trend */}
             <div className="3card w-full flex gap-3">
-                <Card title="MONTHLY TREND" cardClass='w-2/4 bg-slate-800'>
-
+                {/* TREND CHART */}
+                <Card title="BUDGET TREND" cardClass='w-2/4 bg-slate-800 py-5'>
+                    <TrendChart />
                 </Card>
+
+                {/* SOMETHING */}
                 <Card title="SMS ACTIVITY" cardClass='w-1/4 bg-slate-800'>
 
                 </Card>
-                <Card title="RECENT EXPENSES" cardClass='w-1/4 bg-slate-800'>
 
+                {/* RECENT EXPENSES */}
+                <Card title="RECENT EXPENSES" cardClass='w-1/4 bg-slate-800 px-3 py-2' className='space-y-1'>
+                    {
+                        expenses?.data
+                            .sort((a, b) => new Date(b.date) - new Date(a.date))
+                            .slice(0, 4).map((item, i) => (
+                                <li
+                                    key={i}
+                                    className="flex justify-between items-center bg-slate-800 border border-slate-700 p-4 rounded-xl"
+                                >
+                                    <div className="flex gap-6">
+                                        <h2 className="text-lg font-semibold w-14">{item.type}</h2>
+                                        <div className="flex flex-col">
+                                            <p
+                                                className="text-lg font-bold w-20 text-red-400"
+                                            >
+                                                Rs. {item.amount}
+                                            </p>
+                                            <p className="text-gray-500 text-sm">{item.note}</p>
+                                        </div>
+
+                                        <span className="text-md text-gray-400">{item.expenseType}</span>
+                                    </div>
+                                    <div>
+                                        <p className="text-md font-medium">{formatTime(item.date)}</p>
+                                        <p className="text-sm text-slate-400">{formatDate(item.date)}</p>
+                                    </div>
+                                </li>
+
+                            ))
+                    }
+                    <button className="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl"
+                        onClick={() => navigate("/report", { state: { type: "expense" } })}>
+                        View Full Data
+                    </button>
                 </Card>
             </div>
-        </div>
+        </div >
     )
 }
