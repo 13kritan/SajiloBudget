@@ -8,7 +8,6 @@ import ReportsPage from './pages/Report';
 function App() {
   return (
     <Router>
-
       <div className="App flex flex-col bg-slate-600 h-full w-full overflow-auto">
         <NavBar />
         <div className="page flex-1 bg-slate-700 h-auto">
@@ -19,7 +18,6 @@ function App() {
           </Routes>
         </div>
       </div>
-
     </Router>
   );
 }

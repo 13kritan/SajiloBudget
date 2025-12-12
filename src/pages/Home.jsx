@@ -17,24 +17,8 @@ export default function Home() {
     const balance = incomes?.reduce((sum, income) => sum + income.amount, 0);
 
     const { expenses, total, grouped, expLoading, expError, fetchExpenses, fetchByType } = useExpenses()
-    console.log(expenses)
 
     const { amount, type, expenseType, note, setAmount, setType, setExpenseType, setNote, addExpense, handleAdd } = useAddExpense(fetchExpenses);
-
-    const expenseOptions = [
-        { label: "Food & Drinks", onClick: () => setExpenseType("Food & Drinks") },
-        { label: "Transport", onClick: () => setExpenseType("Transport") },
-        { label: "Shopping", onClick: () => setExpenseType("Shopping") },
-        { label: "Bills & Utilities", onClick: () => setExpenseType("Bills & Utilities") },
-        { label: "Entertainment", onClick: () => setExpenseType("Entertainment") },
-        { label: "Health", onClick: () => setExpenseType("Health") },
-        { label: "Education", onClick: () => setExpenseType("Education") },
-        { label: "Travel", onClick: () => setExpenseType("Travel") },
-        { label: "Savings", onClick: () => setExpenseType("Savings") },
-        { label: "Donations", onClick: () => setExpenseType("Donations") },
-        { label: "Others", onClick: () => setExpenseType("Others") }
-    ]
-
 
     function formatTime(isoTime) {
         const date = new Date(isoTime);

@@ -90,7 +90,12 @@ export default function ReportsPage() {
 
                             </li>
                         ))
-                            :
+                            :(
+                            !expenses?.data ? (
+                                <p className="text-slate-500 text-center py-10">
+                                    No {activeTab} records found.
+                                </p>
+                            ):
                             expenses?.data.sort(
                                 (a, b) => new Date(b.date) - new Date(a.date)).map((item) => (
                                     <li
@@ -119,7 +124,8 @@ export default function ReportsPage() {
                                         </div>
 
                                     </li>
-                                ))}
+                                )))}
+                                
                     </ul>
                 )}
             </div>
