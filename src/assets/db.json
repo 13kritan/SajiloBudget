@@ -1,0 +1,82 @@
+[
+    {
+        "_id": "64f000000000000000000001",
+        "amount": 350,
+        "type": "Cash",
+        "expenseType": "Food & Drinks",
+        "note": "Breakfast",
+        "date": "2025-11-22T08:30:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000002",
+        "amount": 120,
+        "type": "eSewa",
+        "expenseType": "Transport",
+        "note": "Bus fare",
+        "date": "2025-11-22T09:00:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000003",
+        "amount": 500,
+        "type": "Bank",
+        "expenseType": "Bills & Utilities",
+        "note": "Electricity",
+        "date": "2025-11-23T12:00:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000004",
+        "amount": 220,
+        "type": "Cash",
+        "expenseType": "Food & Drinks",
+        "note": "Lunch",
+        "date": "2025-11-24T13:00:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000005",
+        "amount": 150,
+        "type": "eSewa",
+        "expenseType": "Transport",
+        "note": "Taxi",
+        "date": "2025-11-25T10:30:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000006",
+        "amount": 300,
+        "type": "Cash",
+        "expenseType": "Shopping",
+        "note": "Groceries",
+        "date": "2025-11-26T16:00:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000007",
+        "amount": 450,
+        "type": "Bank",
+        "expenseType": "Bills & Utilities",
+        "note": "Internet",
+        "date": "2025-11-27T11:00:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000008",
+        "amount": 180,
+        "type": "eSewa",
+        "expenseType": "Food & Drinks",
+        "note": "Snacks",
+        "date": "2025-11-28T15:00:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000009",
+        "amount": 200,
+        "type": "Cash",
+        "expenseType": "Transport",
+        "note": "Fuel",
+        "date": "2025-11-29T09:30:00.000Z"
+    },
+    {
+        "_id": "64f000000000000000000010",
+        "amount": 500,
+        "type": "Bank",
+        "expenseType": "Bills & Utilities",
+        "note": "Water",
+        "date": "2025-11-30T10:00:00.000Z"
+    }
+]

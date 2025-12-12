@@ -6,7 +6,7 @@ import Card from '../components/Card'
 import Dropdown from '../components/Dropdown'
 import { useNavigate } from "react-router-dom";
 import { useIncomes } from "../hooks/useNewIncome";
-import { useAddExpense, useExpenses } from '../hooks/useExpense'
+import { useAddExpense, useDailySpendingAverage, useExpenses } from '../hooks/useExpense'
 import BudgetCircle from '../components/BudgetCircle'
 import ExpensePieChart from '../components/PieChart'
 import TrendChart from '../components/MonthlyTrend'
@@ -16,7 +16,9 @@ export default function Home() {
     const { incomes, loading, error, refetch } = useIncomes();
     const balance = incomes?.reduce((sum, income) => sum + income.amount, 0);
 
-    const { expenses, total, grouped, expLoading, expError, fetchExpenses, fetchByType } = useExpenses()
+    const { expenses, total, grouped, last10Days, expLoading, expError, fetchExpenses, fetchByType } = useExpenses()
+    console.log(last10Days)
+    const { avg, percentChange, refetch: fetchAvg } = useDailySpendingAverage()
 
     const { amount, type, expenseType, note, setAmount, setType, setExpenseType, setNote, addExpense, handleAdd } = useAddExpense(fetchExpenses);
 
@@ -63,7 +65,7 @@ export default function Home() {
             {/* Statistics Layout */}
             <div className="flex justify-center gap-4 w-full">
                 {/* QUICK ADD EXPENSE */}
-                <Card title="QUICK ADD EXPENSE" cardClass="w-1/4 bg-slate-800" className="flex flex-col gap-2">
+                <Card title="QUICK ADD EXPENSE" cardClass="w-1/4 bg-slate-800" className="flex flex-col gap-4">
                     <input
                         type="number"
                         inputMode="numeric"
@@ -140,8 +142,42 @@ export default function Home() {
                 </Card>
 
                 {/* SOMETHING */}
-                <Card title="SMS ACTIVITY" cardClass='w-1/4 bg-slate-800'>
+                <Card title="EXPENSE ANALYSIS" cardClass='w-1/4 bg-slate-800' className='space-y-3'>
+                    <div className="p-4 border border-slate-700 rounded-lg bg-slate-800 text-white w-full flex flex-col gap-1">
+                        <h2 className="text-md text-gray-400 font-semibold">Daily Spending Avg</h2>
+                        <p className="text-2xl font-bold text-gray-300">Rs. {avg}</p>
+                        <p className={`mt-1 ${percentChange >= 0 ? "text-green-400" : "text-red-400"}`}>
+                            {percentChange >= 0 ? "▲" : "▼"} {Math.abs(percentChange)}% vs previous 10 days
+                        </p>
+                        <div className="flex items-end gap-1 h-16 mt-2 w-full">
+                            {last10Days?.map((amt, i) => {
+                                const maxAmount = Math.max(...last10Days); // scale bars
+                                const heightPercent = maxAmount ? (amt / maxAmount) * 100 : 0;
 
+                                // Color based on value (optional: red if above avg, green if below)
+                                const avg = last10Days?.reduce((sum, val) => sum + val, 0) / last10Days?.length;
+                                const barColor = amt > avg ? "bg-red-500" : "bg-green-500";
+
+                                return (
+                                    <div
+                                        key={i}
+                                        style={{ height: `${heightPercent}%` }}
+                                        className={`w-[10%] rounded-sm transition-all duration-300 ${barColor}`}
+                                        title={`NPR ${amt}`}
+                                    ></div>
+                                );
+                            })}
+                        </div>
+                        <span className='font-medium text-xs text-gray-500 w-full text-center'>Spending last 10 Days</span>
+                    </div>
+
+
+                    <div className="p-4 border border-slate-700 rounded-lg bg-slate-800 text-white w-full">
+                        <h2 className="text-md text-gray-400 font-semibold mb-2">Expense Source</h2>
+                        <p className="text-lg  text-gray-300">Bank : <span className='text-gray-200 text-xl font-semibold'> Rs. {grouped?.Bank}</span></p>
+                        <p className="text-lg  text-gray-300">Cash : <span className='text-gray-200 text-xl font-semibold'> Rs. {grouped?.Cash}</span></p>
+                        <p className="text-lg  text-gray-300">Esewa : <span className='text-gray-200 text-xl font-semibold'> Rs. {grouped?.eSewa}</span></p>
+                    </div>
                 </Card>
 
                 {/* RECENT EXPENSES */}

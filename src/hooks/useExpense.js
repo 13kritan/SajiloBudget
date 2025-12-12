@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 
 /**
@@ -61,7 +61,28 @@ export function useExpenses() {
         }
     };
 
-    return { expenses, total, grouped, expLoading, expError, fetchExpenses, fetchByType };
+    const last10Days = useMemo(() => {
+        if (!expenses?.data.length) return [];
+
+        // Aggregate by date
+        const grouped = expenses.data.reduce((acc, exp) => {
+            const date = exp.date.slice(0, 10); // yyyy-mm-dd
+            if (!acc[date]) acc[date] = 0;
+            acc[date] += exp.amount;
+            return acc;
+        }, {});
+
+        // Sort dates ascending
+        const dates = Object.keys(grouped).sort();
+
+        // Take last 10 days
+        const lastDates = dates.slice(-10);
+
+        // Map to amounts
+        return lastDates.map(date => grouped[date]);
+    }, [expenses]);
+
+    return { expenses, last10Days, total, grouped, expLoading, expError, fetchExpenses, fetchByType };
 }
 
 export function useAddExpense(fetchExpenses) {
@@ -77,7 +98,7 @@ export function useAddExpense(fetchExpenses) {
         setLoading(true);
         setError(null);
         try {
-            
+
             await axios.post("http://localhost:5000/api/expenses", {
                 amount: Number(amount),
                 type,
@@ -121,4 +142,35 @@ export function useAddExpense(fetchExpenses) {
         addError,
         handleAdd,
     };
+}
+
+export function useDailySpendingAverage(days = 10) {
+    const [avg, setAvg] = useState(0);
+    const [percentChange, setPercentChange] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchAvg = async () => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const res = await axios.get(`http://localhost:5000/api/summary/daily-average?days=${days}`).then((res) => {
+                setAvg(res.data.lastAvg);
+                setPercentChange(res.data.percentChange);
+            })
+
+        } catch (err) {
+            console.error(err);
+            setError(err.response?.data?.message || "Failed to fetch daily average");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchAvg();
+    }, []);
+
+    return { avg, percentChange, loading, error, refetch: fetchAvg };
 }

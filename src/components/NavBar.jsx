@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ThemeToggle from './ThemeToggle'
 import { faBell, faUser } from '@fortawesome/free-solid-svg-icons'
 import useExchangeRates from '../hooks/useExchangeRates'
+import { useLocation } from 'react-router-dom'
 
 function NavBar() {
+
     const { rates, loading, error, refetch } = useExchangeRates();
     const nprRate = rates?.NPR
     return (
