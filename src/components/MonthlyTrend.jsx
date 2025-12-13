@@ -13,13 +13,21 @@ import { Line } from "react-chartjs-2";
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
+const token = localStorage.getItem("token");
+
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}` // Bearer token for protected routes
+  }
+};
+
 export default function TrendChart({ darkMode }) {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
         const fetchTrend = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/summary");
+                const res = await axios.get("http://localhost:5000/api/summary", config);
 
                 const days = Object.keys(res.data);
                 const income = days.map(d => res.data[d].income);

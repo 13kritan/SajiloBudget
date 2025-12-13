@@ -1,6 +1,15 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 
+
+const token = localStorage.getItem("token");
+
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}` // Bearer token for protected routes
+  }
+};
+
 /**
  * Custom hook to fetch expenses from backend
  * Supports total, by type, and grouped
@@ -20,10 +29,10 @@ export function useExpenses() {
         setError(null);
 
         try {
-            const res = await axios.get(`${API_BASE}/grouped`);
+            const res = await axios.get(`${API_BASE}/grouped`, config);
             setGrouped(res.data);
 
-            const getExpense = await axios.get(`${API_BASE}`).then((res) => setExpenses(res));
+            const getExpense = await axios.get(`${API_BASE}`).then((res) => setExpenses(res), config);
 
             const allExpenses = Object.values(res.data).reduce((sum, val) => sum + val, 0);
             setTotal(allExpenses);
@@ -50,7 +59,7 @@ export function useExpenses() {
         setError(null);
 
         try {
-            const res = await axios.get(`${API_BASE}/type/${type}`);
+            const res = await axios.get(`${API_BASE}/type/${type}`, config);
             return res.data.total;
         } catch (err) {
             console.error(err);
@@ -105,7 +114,7 @@ export function useAddExpense(fetchExpenses) {
                 expenseType,
                 note,
                 date: new Date(),
-            });
+            }, config);
 
             // Refresh main expense totals if passed
             if (fetchExpenses) {
@@ -158,7 +167,7 @@ export function useDailySpendingAverage(days = 10) {
             const res = await axios.get(`http://localhost:5000/api/summary/daily-average?days=${days}`).then((res) => {
                 setAvg(res.data.lastAvg);
                 setPercentChange(res.data.percentChange);
-            })
+            }, config)
 
         } catch (err) {
             console.error(err);

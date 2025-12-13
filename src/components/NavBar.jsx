@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ThemeToggle from './ThemeToggle'
 import { faBell, faUser } from '@fortawesome/free-solid-svg-icons'
 import useExchangeRates from '../hooks/useExchangeRates'
-import { useLocation } from 'react-router-dom'
+import Logo from '../assets/llg.png'
 
 function NavBar() {
 
@@ -12,6 +12,7 @@ function NavBar() {
     return (
         <nav className="flex justify-between p-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow">
             <h1 className="font-bold text-2xl">sajilo<span className='text-orange-500'>Budget</span></h1>
+            <img src={Logo} alt="logo" className="h-20" />
             <button className="p-2 px-4 flex items-center rounded-3xl bg-gray-700" onClick={refetch}>
                 {
                     !loading ?

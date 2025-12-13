@@ -11,13 +11,21 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
+const token = localStorage.getItem("token");
+
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}` // Bearer token for protected routes
+  }
+};
+
 export default function ExpensePieChart({ darkMode = false }) {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
         const fetchSummary = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/expenses/summary");
+                const res = await axios.get("http://localhost:5000/api/expenses/summary", config);
 
                 const sorted = res.data.sort((a, b) => b.total - a.total);
 

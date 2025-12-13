@@ -35,7 +35,7 @@ export default function Home() {
     }
 
     return (
-        <div className='w-full h-full px-24 py-5 flex flex-col gap-3 items-center'>
+        <div className='w-full h-full px-24 py-5 flex flex-col gap-5 items-center'>
             {/* Three Cards Home Structure */}
             <div className="3cards flex gap-6 w-full mb-2">
                 <Card titleCenter="true"
