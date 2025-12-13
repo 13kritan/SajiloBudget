@@ -17,7 +17,6 @@ export default function Home() {
     const balance = incomes?.reduce((sum, income) => sum + income.amount, 0);
 
     const { expenses, total, grouped, last10Days, expLoading, expError, fetchExpenses, fetchByType } = useExpenses()
-    console.log(last10Days)
     const { avg, percentChange, refetch: fetchAvg } = useDailySpendingAverage()
 
     const { amount, type, expenseType, note, setAmount, setType, setExpenseType, setNote, addExpense, handleAdd } = useAddExpense(fetchExpenses);

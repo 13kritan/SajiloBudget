@@ -11,13 +11,12 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-const token = localStorage.getItem("token");
+const authConfig = () => ({
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}` // Bearer token for protected routes
-  }
-};
 
 export default function ExpensePieChart({ darkMode = false }) {
     const [chartData, setChartData] = useState(null);
@@ -25,12 +24,11 @@ export default function ExpensePieChart({ darkMode = false }) {
     useEffect(() => {
         const fetchSummary = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/expenses/summary", config);
-
+                const res = await axios.get("http://localhost:5000/api/expenses", authConfig());
+                
                 const sorted = res.data.sort((a, b) => b.total - a.total);
-
-                const categories = sorted.map((item) => item._id);
-                const amounts = sorted.map((item) => item.total);
+                const categories = sorted.map((item) => item.expenseType);
+                const amounts = sorted.map((item) => item.amount);
 
                 // Choose color palette depending on darkMode
                 const colors = darkMode

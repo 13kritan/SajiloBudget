@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const token = localStorage.getItem("token");
-
-const config = {
+const authConfig = () => ({
   headers: {
-    Authorization: `Bearer ${token}` // Bearer token for protected routes
-  }
-};
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+});
+
 
 /**
  * Custom hook to add eSewa income
@@ -30,7 +29,7 @@ export function useEsewaIncome() {
         source: "eSewa",
         note,
         date: new Date(),
-      }, config);
+      }, authConfig());
 
       setSuccess(true);
     } catch (err) {
@@ -55,7 +54,7 @@ export function useIncomes() {
     setError(null);
 
     try {
-      const res = await axios.get("http://localhost:5000/api/income", config);
+      const res = await axios.get("http://localhost:5000/api/income", authConfig());
       setIncomes(res.data);
     } catch (err) {
       console.error(err);

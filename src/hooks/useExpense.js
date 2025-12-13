@@ -1,14 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 
-
-const token = localStorage.getItem("token");
-
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}` // Bearer token for protected routes
-  }
-};
+const authConfig = () => ({
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
 /**
  * Custom hook to fetch expenses from backend
@@ -23,16 +20,17 @@ export function useExpenses() {
 
     const API_BASE = "http://localhost:5000/api/expenses";
 
+    
     // Fetch all expenses
     const fetchExpenses = async () => {
         setExpLoading(true);
         setError(null);
 
         try {
-            const res = await axios.get(`${API_BASE}/grouped`, config);
+            const res = await axios.get(`${API_BASE}/grouped`, authConfig());
             setGrouped(res.data);
 
-            const getExpense = await axios.get(`${API_BASE}`).then((res) => setExpenses(res), config);
+            const getExpense = await axios.get(`${API_BASE}`, authConfig()).then((res) => setExpenses(res));
 
             const allExpenses = Object.values(res.data).reduce((sum, val) => sum + val, 0);
             setTotal(allExpenses);
@@ -59,7 +57,7 @@ export function useExpenses() {
         setError(null);
 
         try {
-            const res = await axios.get(`${API_BASE}/type/${type}`, config);
+            const res = await axios.get(`${API_BASE}/type/${type}`, authConfig());
             return res.data.total;
         } catch (err) {
             console.error(err);
@@ -107,14 +105,13 @@ export function useAddExpense(fetchExpenses) {
         setLoading(true);
         setError(null);
         try {
-
             await axios.post("http://localhost:5000/api/expenses", {
                 amount: Number(amount),
                 type,
                 expenseType,
                 note,
                 date: new Date(),
-            }, config);
+            }, authConfig());
 
             // Refresh main expense totals if passed
             if (fetchExpenses) {
@@ -164,10 +161,10 @@ export function useDailySpendingAverage(days = 10) {
         setError(null);
 
         try {
-            const res = await axios.get(`http://localhost:5000/api/summary/daily-average?days=${days}`).then((res) => {
+            const res = await axios.get(`http://localhost:5000/api/summary/daily-average?days=${days}`, authConfig()).then((res) => {
                 setAvg(res.data.lastAvg);
                 setPercentChange(res.data.percentChange);
-            }, config)
+            })
 
         } catch (err) {
             console.error(err);
