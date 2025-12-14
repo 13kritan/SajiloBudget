@@ -1,0 +1,17 @@
+[
+    { "amount": 4500, "source": "eSewa", "note": "Salary", "date": "2025-11-14T09:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 1200, "source": "eSewa", "note": "Freelance work", "date": "2025-11-13T14:30:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 3200, "source": "eSewa", "note": "Part-time job", "date": "2025-11-12T12:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 5000, "source": "eSewa", "note": "Salary", "date": "2025-11-11T09:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 1500, "source": "eSewa", "note": "Freelance work", "date": "2025-11-10T10:30:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 2500, "source": "eSewa", "note": "Part-time job", "date": "2025-11-09T11:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 4000, "source": "eSewa", "note": "Salary", "date": "2025-11-08T09:30:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 1800, "source": "eSewa", "note": "Freelance work", "date": "2025-11-07T13:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 3500, "source": "eSewa", "note": "Part-time job", "date": "2025-11-06T12:30:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 4800, "source": "eSewa", "note": "Salary", "date": "2025-11-05T09:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 1600, "source": "eSewa", "note": "Freelance work", "date": "2025-11-04T15:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 2800, "source": "eSewa", "note": "Part-time job", "date": "2025-11-03T11:30:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 4200, "source": "eSewa", "note": "Salary", "date": "2025-11-02T09:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 1300, "source": "eSewa", "note": "Freelance work", "date": "2025-11-01T14:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" },
+    { "amount": 3000, "source": "eSewa", "note": "Part-time job", "date": "2025-10-31T10:00:00.000Z", "userId": "64a7f5c2b2f4a8d123456789" }
+]

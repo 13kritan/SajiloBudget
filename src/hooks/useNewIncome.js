@@ -17,7 +17,7 @@ export function useEsewaIncome() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const addIncome = async ({ amount, note }) => {
+  const addIncome = async ({ amount, note, source }) => {
     setLoading(true);
     setError(null);
     setSuccess(false);
@@ -26,7 +26,7 @@ export function useEsewaIncome() {
       // Axios POST request to backend API
       await axios.post("http://localhost:5000/api/income", {
         amount: Number(amount),
-        source: "eSewa",
+        source: source,
         note,
         date: new Date(),
       }, authConfig());

@@ -26,7 +26,6 @@ export default function TrendChart({ darkMode }) {
         const fetchTrend = async () => {
             try {
                 const res = await axios.get("http://localhost:5000/api/summary", authConfig());
-
                 const days = Object.keys(res.data);
                 const income = days.map(d => res.data[d].income);
                 const expense = days.map(d => res.data[d].expense);

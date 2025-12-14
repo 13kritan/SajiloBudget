@@ -51,9 +51,10 @@ export default function Home() {
                 </Card>
                 <Card titleCenter="true"
                     cardClass='bg-gradient-to-br from-slate-400 to-slate-800 text-white'
-                    className='text-center font-semibold text-lg'
+                    className={`text-center font-semibold text-lg ${total>balance? 'text-red-400' : ''}`}
                     title="CURRENT BALANCE">
                     Rs. {balance - total}
+
                 </Card>
             </div>
 

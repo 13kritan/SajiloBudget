@@ -24,11 +24,11 @@ export default function ExpensePieChart({ darkMode = false }) {
     useEffect(() => {
         const fetchSummary = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/expenses", authConfig());
-                
+                const res = await axios.get("http://localhost:5000/api/expenses/summary", authConfig());
+                console.log(res)
                 const sorted = res.data.sort((a, b) => b.total - a.total);
-                const categories = sorted.map((item) => item.expenseType);
-                const amounts = sorted.map((item) => item.amount);
+                const categories = sorted.map((item) => item._id);
+                const amounts = sorted.map((item) => item.total);
 
                 // Choose color palette depending on darkMode
                 const colors = darkMode
