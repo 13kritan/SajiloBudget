@@ -5,7 +5,7 @@ export default function MainLayout() {
   return (
     <div className="bg-slate-600 h-full w-full">
       <NavBar />
-      <div className="page bg-slate-700 min-h-screen">
+      <div className="page bg-slate-700">
         <Outlet />
       </div>
     </div>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const authConfig = () => ({
   headers: {
@@ -16,6 +18,7 @@ export function useEsewaIncome() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate()
 
   const addIncome = async ({ amount, note, source }) => {
     setLoading(true);
@@ -29,9 +32,12 @@ export function useEsewaIncome() {
         source: source,
         note,
         date: new Date(),
-      }, authConfig());
+      }, authConfig()).then(() => setSuccess(true));
+      
+      toast.success("Income added successfully")
+      navigate('/')
 
-      setSuccess(true);
+      ;
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Failed to add income");

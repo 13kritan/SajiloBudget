@@ -16,15 +16,15 @@ export default function Register() {
 
   const { register, login, logout, loading, error } = useAuth()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    const reg = register({ name, email, password })
+    const reg = await register({ name, email, password })
 
-    if(reg) navigate('/')
+    if (reg) navigate('/')
   };
 
   return (

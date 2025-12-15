@@ -12,10 +12,9 @@ export default function Login() {
 
     const { login, logout, loading, error } = useAuth()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const log = login({ email, password })
+        const log = await login({ email, password })
         if (log) navigate('/')
     };
     return (

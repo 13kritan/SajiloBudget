@@ -4,15 +4,17 @@ import Esewa from "../assets/esa.png"
 import Cash from "../assets/cash.png"
 import Bank from "../assets/bank.png"
 import { useEsewaIncome } from "../hooks/useNewIncome";
+import { toast } from "react-toastify";
 
 export default function NewIncome({ onClose }) {
+    const { addIncome, loading, error, success } = useEsewaIncome();
     const navigate = useNavigate()
     const [amount, setAmount] = useState("");
     const [note, setNote] = useState("");
     const [activeMode, setActiveMode] = useState("eSewa")
     const [source, setSource] = useState("eSewa")
 
-    const { addIncome, loading, error, success } = useEsewaIncome();
+
 
     const handleClick = (e) => {
         setActiveMode(e.currentTarget.value)
@@ -28,17 +30,14 @@ export default function NewIncome({ onClose }) {
         await addIncome({ amount, note, source });
 
         if (success) {
-            alert("eSewa income added successfully!");
-            onClose();
             setAmount("");
             setNote("");
-            navigate('/')
         }
     };
 
 
     return (
-        <div className='w-full h-full px-24 py-5 flex flex-col gap-3 items-center justify-center'>
+        <div className='w-full px-24 py-5 flex flex-col gap-3 items-center justify-center'>
             <div className="bg-slate-800 text-white rounded-2xl shadow-lg w-full max-w-md p-8">
                 <h2 className="text-3xl font-bold text-center text-gray-400 mb-5">Add a Income</h2>
                 <div className=" flex items-center justify-around w-full mb-3">

@@ -7,6 +7,8 @@ import ReportsPage from './pages/Report';
 import Authenticate from './pages/Authenticate';
 import MainLayout from "./layout/MainLayout"
 import AuthLayout from "./layout/AuthLayout"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -16,7 +18,7 @@ function App() {
           <Routes>
             {/* Routes WITH NavBar */}
             <Route element={<MainLayout />}>
-              <Route path="/" element={ <PrivateRoute><Home /></PrivateRoute>} />
+              <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
               <Route path="/newIncome" element={<PrivateRoute><NewIncome /></PrivateRoute>} />
               <Route path="/report" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
             </Route>
@@ -26,6 +28,14 @@ function App() {
               <Route path="/authenticate/*" element={<Authenticate />} />
             </Route>
           </Routes>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+            draggable
+          />
         </div>
       </Router>
     </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const authConfig = () => ({
     headers: {
@@ -34,10 +35,6 @@ export function useExpenses() {
 
             const allExpenses = Object.values(res.data).reduce((sum, val) => sum + val, 0);
             setTotal(allExpenses);
-
-            // Optional: if you want raw expenses as well
-            // const allRes = await axios.get(`${API_BASE}/total`);
-            // setTotal(allRes.data.total);
 
         } catch (err) {
             console.error(err);
@@ -121,8 +118,9 @@ export function useAddExpense(fetchExpenses) {
             // Clear fields after success
             setAmount("");
             setNote("");
+            toast.success("Expense Added")
         } catch (err) {
-            console.error(err);
+            toast.error(err)
             setError("Failed to add expense");
         } finally {
             setLoading(false);

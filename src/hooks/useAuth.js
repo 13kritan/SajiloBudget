@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const API = "http://localhost:5000/api/auth";
 
@@ -22,8 +24,11 @@ export function useAuth() {
     try {
       const res = await axios.post(`${API}/register`, { name, email, password }, config);
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", res.data.user);
+      toast.success("Account created successfully")
       return res.data.user;
     } catch (err) {
+      toast.error(err.response?.data?.message)
       setError(err.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
@@ -36,8 +41,11 @@ export function useAuth() {
     try {
       const res = await axios.post(`${API}/login`, { email, password }, config);
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", res.data.user);
+      toast.success("Logged In")
       return res.data.user;
     } catch (err) {
+      toast.error("Invalid Login Credentials!")
       setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
@@ -46,6 +54,7 @@ export function useAuth() {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   return { register, login, logout, loading, error };
