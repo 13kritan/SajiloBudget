@@ -34,8 +34,8 @@ export default function ReportsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white px-24 py-5">
-            <h1 className="text-3xl font-bold mb-6">Statements</h1>
+        <div className="min-h-screen bg-slate-950 text-white md:px-24 md:py-5 xs:px-8 xs:py-3">
+            <h1 className="md:text-3xl xs:text-2xl font-bold mb-6">Statements</h1>
 
             {/* Tabs */}
             <div className="flex gap-4 mb-6">
@@ -43,7 +43,7 @@ export default function ReportsPage() {
                     <button
                         key={t.key}
                         onClick={() => setActiveTab(t.key)}
-                        className={`px-4 py-2 rounded-xl border 
+                        className={`px-4 py-2 xs:text-sm rounded-xl border 
             ${activeTab === t.key
                                 ? "bg-slate-800 border-slate-600"
                                 : "bg-slate-900 border-slate-800 text-slate-400"
@@ -100,7 +100,7 @@ export default function ReportsPage() {
                                 (a, b) => new Date(b.date) - new Date(a.date)).map((item) => (
                                     <li
                                         key={item._id}
-                                        className="flex justify-between items-center bg-slate-800 border border-slate-700 p-4 rounded-xl"
+                                        className="flex  justify-between items-center bg-slate-800 border border-slate-700 p-4 rounded-xl"
                                     >
                                         <div className="flex gap-6">
                                             <h2 className="text-lg font-semibold w-14">{item.type}</h2>
@@ -114,9 +114,10 @@ export default function ReportsPage() {
                                                     Rs. {item.amount}
                                                 </p>
                                                 <p className="text-gray-500 text-sm">{item.note}</p>
+                                                <span className="text-md text-gray-400 md:hidden">{item.expenseType}</span>
                                             </div>
 
-                                            <span className="text-md text-gray-400">{item.expenseType}</span>
+                                            <span className="text-md text-gray-400 xs:hidden md:block">{item.expenseType}</span>
                                         </div>
                                         <div>
                                             <p className="text-md font-medium">{formatTime(item.date)}</p>

@@ -34,7 +34,7 @@ export default function Home() {
     }
 
     return (
-        <div className='w-full h-full px-24 py-5 flex flex-col gap-5 items-center'>
+        <div className='w-full h-full lg:px-24 md:px-16 xs:px-8 py-5 flex flex-col gap-5 items-center'>
             {/* Three Cards Home Structure */}
             <div className="3cards flex gap-6 w-full mb-2">
                 <Card titleCenter="true"
@@ -63,9 +63,9 @@ export default function Home() {
 
 
             {/* Statistics Layout */}
-            <div className="flex justify-center gap-4 w-full">
+            <div className="flex justify-center gap-4 w-full lg:flex-row xs:flex-col">
                 {/* QUICK ADD EXPENSE */}
-                <Card title="QUICK ADD EXPENSE" cardClass="w-1/4 bg-slate-800" className="flex flex-col gap-4">
+                <Card title="QUICK ADD EXPENSE" cardClass="xl:w-1/4 xs:w-full xs:px-4 md:px-16 lg:px-8 bg-slate-800 flex-1" className="flex flex-col gap-4 xs:w-full">
                     <input
                         type="number"
                         inputMode="numeric"
@@ -118,12 +118,12 @@ export default function Home() {
                 </Card>
 
                 {/* PIE CHART */}
-                <Card title="CATEGORY SPENDING" cardClass='w-2/4 bg-slate-800'>
+                <Card title="CATEGORY SPENDING" cardClass='lg:w-2/4 xs:w-full bg-slate-800 flex-2'>
                     <ExpensePieChart />
                 </Card>
 
                 {/* QUICK ACTION BUTTONS */}
-                <Card title="QUICK ACTION" cardClass='w-1/4 bg-slate-800'>
+                <Card title="QUICK ACTION" cardClass='w-1/4 bg-slate-800 flex-1'>
                     <div className='flex flex-col gap-2'>
                         <Button
                             onClick={() => navigate("/newIncome")}>
@@ -135,14 +135,14 @@ export default function Home() {
             </div>
 
             {/* Monthly Trend */}
-            <div className="3card w-full flex gap-3">
+            <div className="3card w-full flex xs:flex-col lg:flex-row gap-3">
                 {/* TREND CHART */}
-                <Card title="BUDGET TREND" cardClass='w-2/4 bg-slate-800 py-5'>
+                <Card title="BUDGET TREND" cardClass='w-2/4 lg:w-1/4 bg-slate-800 py-5 lg:flex-1'>
                     <TrendChart />
                 </Card>
 
                 {/* SOMETHING */}
-                <Card title="EXPENSE ANALYSIS" cardClass='w-1/4 bg-slate-800' className='space-y-3'>
+                <Card title="EXPENSE ANALYSIS" cardClass='w-1/4 bg-slate-800 lg:flex-1' className='space-y-3'>
                     <div className="p-4 border border-slate-700 rounded-lg bg-slate-800 text-white w-full flex flex-col gap-1">
                         <h2 className="text-md text-gray-400 font-semibold">Daily Spending Avg</h2>
                         <p className="text-2xl font-bold text-gray-300">Rs. {avg}</p>
@@ -181,7 +181,7 @@ export default function Home() {
                 </Card>
 
                 {/* RECENT EXPENSES */}
-                <Card title="RECENT EXPENSES" cardClass='w-1/4 bg-slate-800 px-3 py-2' className='space-y-1'>
+                <Card title="RECENT EXPENSES" cardClass='w-1/4 bg-slate-800 px-3 py-2 lg:flex-1' className='space-y-1'>
                     {
                         expenses?.data
                             .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -190,22 +190,23 @@ export default function Home() {
                                     key={i}
                                     className="flex justify-between items-center bg-slate-800 border border-slate-700 p-4 rounded-xl"
                                 >
-                                    <div className="flex gap-6">
-                                        <h2 className="text-lg font-semibold w-14">{item.type}</h2>
+                                    <div className="flex gap-6 ">
+                                        <h2 className="md:text-lg lg:text-md xs:text-md font-semibold md:w-14 xs:w-8">{item.type}</h2>
                                         <div className="flex flex-col">
                                             <p
-                                                className="text-lg font-bold w-20 text-red-400"
+                                                className="md:text-lg xs:text-md font-bold w-20 text-red-400"
                                             >
                                                 Rs. {item.amount}
                                             </p>
-                                            <p className="text-gray-500 text-sm">{item.note}</p>
+                                            <p className="text-gray-500 text-sm lg:text-xs">{item.note}</p>
+                                            <span className="text-md  text-gray-400 md:block lg:block xl:hidden">{item.expenseType}</span>
                                         </div>
 
-                                        <span className="text-md text-gray-400">{item.expenseType}</span>
+                                        <span className="text-md text-gray-400 xl:block lg:hidden xs:hidden md:block">{item.expenseType}</span>
                                     </div>
                                     <div>
-                                        <p className="text-md font-medium">{formatTime(item.date)}</p>
-                                        <p className="text-sm text-slate-400">{formatDate(item.date)}</p>
+                                        <p className="md:text-lg  xs:text-md font-medium">{formatTime(item.date)}</p>
+                                        <p className="md:text-sm xs:text-xs text-slate-400">{formatDate(item.date)}</p>
                                     </div>
                                 </li>
 

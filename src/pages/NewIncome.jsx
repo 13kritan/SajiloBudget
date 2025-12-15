@@ -37,7 +37,7 @@ export default function NewIncome({ onClose }) {
 
 
     return (
-        <div className='w-full px-24 py-5 flex flex-col gap-3 items-center justify-center'>
+        <div className='w-full md:px-24 xs:px-8 py-5 flex flex-col gap-3 items-center justify-center'>
             <div className="bg-slate-800 text-white rounded-2xl shadow-lg w-full max-w-md p-8">
                 <h2 className="text-3xl font-bold text-center text-gray-400 mb-5">Add a Income</h2>
                 <div className=" flex items-center justify-around w-full mb-3">

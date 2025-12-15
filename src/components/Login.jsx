@@ -18,8 +18,8 @@ export default function Login() {
         if (log) navigate('/')
     };
     return (
-        <div className="flex items-center justify-center rounded-lg w-2/3">
-            <div className="bg-gray-800 text-white rounded-2xl shadow-lg w-full max-w-md p-8">
+        <div className="flex items-center justify-center rounded-lg md:w-2/3 xs:w-full">
+            <div className="bg-gray-800 text-white rounded-2xl shadow-lg w-full max-w-md md:p-8 xs:p-3">
                 <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
