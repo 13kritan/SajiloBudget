@@ -22,7 +22,12 @@ function NavBar() {
     const [user, setUser] = useState()
 
     const fetchUser = async () => {
-        const res = await axios.get("http://localhost:5000/api/auth/getUser", authConfig()).then((res)=> setUser(res.data?.user))
+        try {
+            const res = await axios.get("http://localhost:5000/api/auth/getUser", authConfig()).then((res)=> setUser(res.data?.user))
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     useEffect(() => {
