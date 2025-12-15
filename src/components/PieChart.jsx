@@ -69,7 +69,7 @@ export default function ExpensePieChart({ darkMode = false }) {
                 Expense Distribution
             </h2>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
 
                 {/* Pie Chart */}
                 <div className="w-56">
@@ -104,7 +104,7 @@ export default function ExpensePieChart({ darkMode = false }) {
                 </div>
 
                 {/* Custom Legend With Percent */}
-                <div className="flex flex-col justify-center gap-2">
+                <div className="flex flex-col justify-center gap-1">
                     {chartData.labels.map((label, index) => {
 
                         return (
