@@ -17,7 +17,7 @@ export default function BudgetCircle({ total, balance }) {
 
     return (
         <div className="flex items-center justify-center relative">
-            <svg   viewBox={`0 0 ${width} ${height}`} className="rounded-2xl max-w-[700px] sm:w-full h-auto overflow-visible">
+            <svg  width={width} height={height} className="rounded-2xl sm:w-full overflow-hidden">
 
                 {/* Background border */}
                 <rect
