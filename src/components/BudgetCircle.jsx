@@ -17,7 +17,7 @@ export default function BudgetCircle({ total, balance }) {
 
     return (
         <div className="flex items-center justify-center relative">
-            <svg width={width} height={height} className="rounded-2xl overflow-visible">
+            <svg   viewBox={`0 0 ${width} ${height}`} className="rounded-2xl overflow-visible">
 
                 {/* Background border */}
                 <rect
@@ -53,7 +53,7 @@ export default function BudgetCircle({ total, balance }) {
 
             {/* Center content */}
             <div className="absolute text-center">
-                <p className="text-3xl font-bold text-white">{percent.toFixed(1)}%</p>
+                <p className="text-3xl sm:text-xl font-bold text-white">{percent.toFixed(1)}%</p>
                 <p className="text-gray-300">Budget Used</p>
             </div>
         </div>

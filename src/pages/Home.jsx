@@ -39,19 +39,19 @@ export default function Home() {
             <div className="3cards flex gap-6 w-full mb-2">
                 <Card titleCenter="true"
                     cardClass='bg-gradient-to-br from-blue-400 to-blue-800 text-white'
-                    className='text-center font-semibold text-lg'
+                    className='text-center font-semibold text-lg sm:text-md'
                     title="TOTAL INCOME">
                     Rs. {balance ? balance : <p>Failed</p>}
                 </Card>
                 <Card titleCenter="true"
                     cardClass='bg-gradient-to-br from-violet-400 to-violet-800 text-white'
-                    className='text-center font-semibold text-lg'
+                    className='text-center font-semibold text-lg sm:text-md'
                     title="TOTAL SPENDING">
                     Rs. {total ? total : <p>Failed</p>}
                 </Card>
                 <Card titleCenter="true"
                     cardClass='bg-gradient-to-br from-slate-400 to-slate-800 text-white'
-                    className={`text-center font-semibold text-lg ${total>balance? 'text-red-400' : ''}`}
+                    className={`text-center font-semibold sm:text-md text-lg ${total>balance? 'text-red-400' : ''}`}
                     title="CURRENT BALANCE">
                     Rs. {balance - total}
 
