@@ -16,7 +16,22 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://sajilobudget.netlify.app"
+];
+
+app.use(cors({
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true); // allow Postman or curl
+    if(allowedOrigins.indexOf(origin) === -1){
+      return callback(new Error("CORS policy does not allow access from this origin"), false);
+    }
+    return callback(null, true);
+  },
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  credentials: true // if you need cookies
+}));
 app.use(express.json()); // for parsing JSON
 app.use(express.urlencoded({ extended: true }));
 

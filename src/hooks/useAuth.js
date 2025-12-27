@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:5000/api/auth";
+const API = "https://sajilobudget-backend.onrender.com/api/auth";
 
 const token = localStorage.getItem("token");
 
