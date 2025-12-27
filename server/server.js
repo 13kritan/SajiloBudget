@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const allowedOrigins = [
-  "http://localhost:3000",
+  "https://sajilobudget-frontend.onrender.com",
   "https://sajilobudget.netlify.app"
 ];
 
@@ -36,7 +36,6 @@ app.use(express.json()); // for parsing JSON
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-// server.js
 app.use("/api/income", incomeRoutes)
 app.use("/api/expenses", expenseRoutes)
 app.use("/api/summary", summaryRoutes)
