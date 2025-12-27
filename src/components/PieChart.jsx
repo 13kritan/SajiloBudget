@@ -69,7 +69,8 @@ export default function ExpensePieChart({ darkMode = false }) {
                 Expense Distribution
             </h2>
 
-            <div className="flex gap-4 items-center xs:justify-around">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+
 
                 {/* Pie Chart */}
                 <div className="lg:w-56 md:w-56">

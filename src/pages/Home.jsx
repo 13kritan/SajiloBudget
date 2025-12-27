@@ -38,21 +38,24 @@ export default function Home() {
             {/* Three Cards Home Structure */}
             <div className="3cards flex gap-6 w-full mb-2">
                 <Card titleCenter="true"
-                    cardClass='bg-gradient-to-br from-blue-400 to-blue-800 text-white'
-                    className='text-center font-semibold text-lg sm:text-md'
-                    title="TOTAL INCOME">
+                    cardClass='bg-gradient-to-br from-blue-400 to-blue-800 text-white xs:text-sm'
+                    className='text-center font-semibold text-lg xs:text-sm'
+                    title="TOTAL INCOME"
+                    titleClass='xs:text-sm'>
                     Rs. {balance ? balance : <p>Failed</p>}
                 </Card>
                 <Card titleCenter="true"
-                    cardClass='bg-gradient-to-br from-violet-400 to-violet-800 text-white'
-                    className='text-center font-semibold text-lg sm:text-md'
-                    title="TOTAL SPENDING">
+                    cardClass='bg-gradient-to-br from-violet-400 to-violet-800 text-white xs:text-sm'
+                    className='text-center font-semibold text-lg xs:text-sm'
+                    title="TOTAL SPENDING"
+                    titleClass='xs:text-sm'>
                     Rs. {total ? total : <p>Failed</p>}
                 </Card>
                 <Card titleCenter="true"
-                    cardClass='bg-gradient-to-br from-slate-400 to-slate-800 text-white'
-                    className={`text-center font-semibold sm:text-sm text-lg ${total>balance? 'text-red-400' : ''}`}
-                    title="CURRENT BALANCE">
+                    cardClass='bg-gradient-to-br from-slate-400 to-slate-800 text-white xs:text-sm'
+                    className={`text-center font-semibold xs:text-sm text-lg ${total>balance? 'text-red-400' : ''}`}
+                    title="CURRENT BALANCE"
+                    titleClass='xs:text-sm'>
                     Rs. {balance - total}
 
                 </Card>

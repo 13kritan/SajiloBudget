@@ -58,10 +58,10 @@ export default function BudgetCircle({ total, balance }) {
 
       {/* Center content */}
       <div className="absolute text-center">
-        <p className="text-4xl md:text-2xl sm:text-xl font-bold text-white">
+        <p className="text-4xl md:text-2xl xs:text-xs font-bold text-white">
           {percent.toFixed(1)}%
         </p>
-        <p className="text-gray-300 text-lg sm:text-xs">
+        <p className="text-gray-300 text-lg xs:text-xs">
           Budget Used
         </p>
       </div>
