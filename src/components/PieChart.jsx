@@ -24,7 +24,7 @@ export default function ExpensePieChart({ darkMode = false }) {
     useEffect(() => {
         const fetchSummary = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/expenses/summary", authConfig());
+                const res = await axios.get("https://sajilobudget.onrender.com/api/expenses/summary", authConfig());
                 console.log(res)
                 const sorted = res.data.sort((a, b) => b.total - a.total);
                 const categories = sorted.map((item) => item._id);
