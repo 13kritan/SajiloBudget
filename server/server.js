@@ -17,8 +17,9 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const allowedOrigins = [
-  "https://sajilobudget-frontend.onrender.com",
-  "https://sajilobudget.netlify.app"
+  "http://localhost:3000",                   // local dev
+  "https://sajilobudget.netlify.app",       // your live frontend URL (Netlify or Vercel)
+  "https://sajilobudget-frontend.onrender.com" // if testing frontend on Render
 ];
 
 app.use(cors({
@@ -30,8 +31,9 @@ app.use(cors({
     return callback(null, true);
   },
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  credentials: true // if you need cookies
+  credentials: true
 }));
+
 app.use(express.json()); // for parsing JSON
 app.use(express.urlencoded({ extended: true }));
 

@@ -27,7 +27,7 @@ export function useEsewaIncome() {
 
     try {
       // Axios POST request to backend API
-      await axios.post("https://sajilobudget-backend.onrender.com/api/income", {
+      await axios.post("https://sajilobudget.onrender.com/api/income", {
         amount: Number(amount),
         source: source,
         note,
@@ -60,7 +60,7 @@ export function useIncomes() {
     setError(null);
 
     try {
-      const res = await axios.get("https://sajilobudget-backend.onrender.com/api/income", authConfig());
+      const res = await axios.get("https://sajilobudget.onrender.com/api/income", authConfig());
       setIncomes(res.data);
     } catch (err) {
       console.error(err);

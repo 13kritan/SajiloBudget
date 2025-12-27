@@ -19,7 +19,7 @@ export function useExpenses() {
     const [expLoading, setExpLoading] = useState(true);
     const [expError, setError] = useState(null);
 
-    const API_BASE = "https://sajilobudget-backend.onrender.com/api/expenses";
+    const API_BASE = "https://sajilobudget.onrender.com/api/expenses";
 
     
     // Fetch all expenses
@@ -102,7 +102,7 @@ export function useAddExpense(fetchExpenses) {
         setLoading(true);
         setError(null);
         try {
-            await axios.post("https://sajilobudget-backend.onrender.com/api/expenses", {
+            await axios.post("https://sajilobudget.onrender.com/api/expenses", {
                 amount: Number(amount),
                 type,
                 expenseType,
@@ -159,7 +159,7 @@ export function useDailySpendingAverage(days = 10) {
         setError(null);
 
         try {
-            const res = await axios.get(`https://sajilobudget-backend.onrender.com/api/summary/daily-average?days=${days}`, authConfig()).then((res) => {
+            const res = await axios.get(`https://sajilobudget.onrender.com/api/summary/daily-average?days=${days}`, authConfig()).then((res) => {
                 setAvg(res.data.lastAvg);
                 setPercentChange(res.data.percentChange);
             })
