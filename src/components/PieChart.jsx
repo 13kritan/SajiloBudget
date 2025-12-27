@@ -73,9 +73,9 @@ export default function ExpensePieChart({ darkMode = false }) {
 
 
                 {/* Pie Chart */}
-                <div className="lg:w-56 md:w-56">
+                <div className="w-48 xs:w-56 md:w-56 flex items-center justify-center">
+
                     <Pie
-                        width={4}
                         data={chartData}
                         options={{
                             plugins: {
