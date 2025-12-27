@@ -22,13 +22,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 // server.js
-app.use("/api/income", incomeRoutes);
-app.use("/api/expenses", expenseRoutes);
-app.use("/api/summary", summaryRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/api/income", incomeRoutes)
+app.use("/api/expenses", expenseRoutes)
+app.use("/api/summary", summaryRoutes)
+app.use("/api/auth", authRoutes)
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
+  family: 4
 })
 .then(() => console.log('✅ MongoDB connected!'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
