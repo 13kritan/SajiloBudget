@@ -8,7 +8,7 @@ export default function BudgetCircle({ total, balance }) {
     percent < 75 ? "#EAB308" :
     "#EF4444";
 
-  const width = 700;
+  const width = 600;
   const height = 100;
   const radius = 20;
 
@@ -21,7 +21,7 @@ export default function BudgetCircle({ total, balance }) {
     <div className="flex items-center justify-center relative w-full">
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        className="w-full max-w-[700px] sm:max-w-full h-auto rounded-2xl overflow-hidden"
+        className="w-full max-w-[600px] sm:max-w-full h-auto rounded-2xl overflow-hidden"
         preserveAspectRatio="xMidYMid meet"
       >
         {/* Background */}
@@ -58,10 +58,10 @@ export default function BudgetCircle({ total, balance }) {
 
       {/* Center content */}
       <div className="absolute text-center">
-        <p className="text-3xl sm:text-xl font-bold text-white">
+        <p className="text-4xl md:text-2xl sm:text-xl font-bold text-white">
           {percent.toFixed(1)}%
         </p>
-        <p className="text-gray-300 text-sm sm:text-xs">
+        <p className="text-gray-300 text-lg sm:text-xs">
           Budget Used
         </p>
       </div>
