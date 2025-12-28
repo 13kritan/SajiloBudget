@@ -1,7 +1,7 @@
 export default function Button({
     children,
     onClick,
-    className = "",      // for content/style overrides
+    className = "",      // style overrides
     variant = "primary",  // primary | secondary | outline | gradient
     size = "md",          // sm | md | lg
     icon = null,
