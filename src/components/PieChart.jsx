@@ -87,7 +87,7 @@ export default function ExpensePieChart({ darkMode = false }) {
                                     font: { weight: "bold", size: 12 },
                                     anchor: "bottom",     // outside the circle
                                     align: "end",      // outside the arc
-                                    offset: 12,        // controls how far outside
+                                    offset: 12,        // how far outside
                                     formatter: (value, ctx) => {
                                         const dataArr = ctx.chart.data.datasets[0].data;
                                         const sum = dataArr.reduce((a, b) => a + b, 0);
