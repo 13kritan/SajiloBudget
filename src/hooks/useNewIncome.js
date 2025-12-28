@@ -9,11 +9,6 @@ const authConfig = () => ({
   },
 });
 
-
-/**
- * Custom hook to add eSewa income
- * Returns: addIncome function + loading, error, success states
- */
 export function useEsewaIncome() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
