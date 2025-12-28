@@ -8,10 +8,6 @@ const authConfig = () => ({
     },
   });
 
-/**
- * Custom hook to fetch expenses from backend
- * Supports total, by type, and grouped
- */
 export function useExpenses() {
     const [expenses, setExpenses] = useState(); // raw expense data
     const [total, setTotal] = useState(0);       // total amount
