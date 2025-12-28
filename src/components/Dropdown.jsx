@@ -5,10 +5,10 @@ import { faAngleDown, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function Dropdown({ label = "Dropdown", options = [], selected: controlledSelected, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [internalSelected, setInternalSelected] = useState(label); // store selected label
+  const [internalSelected, setInternalSelected] = useState(label); 
   const dropdownRef = useRef(null);
 
-  const selected = controlledSelected ?? internalSelected; // controlled overrides internal
+  const selected = controlledSelected ?? internalSelected; 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -21,8 +21,8 @@ export default function Dropdown({ label = "Dropdown", options = [], selected: c
   }, []);
 
   const handleSelect = (opt) => {
-    if (!controlledSelected) setInternalSelected(opt.label); // only update internal if uncontrolled
-    if (onSelect) onSelect(opt);                             // call parent callback if provided
+    if (!controlledSelected) setInternalSelected(opt.label); 
+    if (onSelect) onSelect(opt);                             
     setIsOpen(false);
   };
 
