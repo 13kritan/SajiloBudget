@@ -6,7 +6,7 @@ export default function Card({
     children,
     className = "",
     titleCenter = false,
-    cardClass = "bg-white dark:bg-gray-900", // default but can be fully overridden
+    cardClass = "bg-white dark:bg-gray-900", // default 
     footerClass = "",
     titleClass = "",
   }) {
