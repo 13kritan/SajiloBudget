@@ -23,7 +23,7 @@ function NavBar() {
 
     const fetchUser = async () => {
         try {
-            const res = await axios.get("https://sajilobudget.onrender.com/api/auth/getUser", authConfig()).then((res)=> setUser(res.data?.user))
+            const res = await axios.get("https://sajilobudget-production.up.railway.app/api/auth/getUser", authConfig()).then((res)=> setUser(res.data?.user))
         } catch (error) {
             console.log(error)
         }
