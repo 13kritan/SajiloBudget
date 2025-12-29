@@ -17,9 +17,10 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const allowedOrigins = [
-  "http://localhost:3000",                   // local dev
-  "https://sajilobudget.netlify.app",       // your live frontend URL (Netlify or Vercel)
-  "https://sajilobudget-frontend.onrender.com" // if testing frontend on Render
+  "http://localhost:3000",
+  "https://sajilo-budget.vercel.app/",
+  "https://sajilobudget.netlify.app",       // live frontend URL (Netlify or Vercel)
+  "https://sajilobudget-frontend.onrender.com" // frontend on Render
 ];
 
 app.use(cors({
